@@ -12,8 +12,6 @@ check_android_task:
     echo no | avdmanager create avd --force
       --name emulator
       --package "system-images;android-33;google_apis;x86_64"
-  create_sdcard_script:
-    $ANDROID_HOME/emulator/mksdcard -l mySdCard 1024M sdcard.img
   start_avd_background_script:
     $ANDROID_HOME/emulator/emulator
       -avd emulator
@@ -23,7 +21,7 @@ check_android_task:
       -no-snapshot
       -no-window
       -camera-back none
-      -sdcard sdcard.img
+      -writable-system
   assemble_instrumented_tests_script: |
     chmod +x gradlew
     ./gradlew assembleDebugAndroidTest
@@ -34,12 +32,12 @@ check_android_task:
     adb shell settings put global transition_animation_scale 0.0
     adb shell settings put global animator_duration_scale 0.0
   screen_record_background_script: |
-    adb shell 'mount -o remount rw /sdcard; chmod 755 /mnt/sdcard; ls -lha /sdcard'
-    adb shell 'for n in $(seq 1 500); do screenrecord --verbose --time-limit=5 /sdcard/sr$n.mp4; done'
+    adb shell 'mount -o remount rw /system; ls -lha /system; mkdir /system/sr'
+    adb shell 'for n in $(seq 1 500); do screenrecord --verbose --time-limit=5 /system/sr/$n.mp4; done'
   check_script:
     sleep 10 #./gradlew check connectedCheck || sleep 5
   always:
     screenrecord_pull_script:
-      adb pull /sdcard ; ls -lha
+      adb pull /system/sr ; ls -lha
     screenrecord_artifacts:
       path: "*.mp4"
