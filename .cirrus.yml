@@ -32,3 +32,5 @@ check_android_task:
     adb shell settings put global animator_duration_scale 0.0
   check_script:
     ./gradlew check connectedCheck
+  on_failure:
+    adb logcat
