@@ -32,11 +32,9 @@ check_android_task:
     adb shell settings put global transition_animation_scale 0.0
     adb shell settings put global animator_duration_scale 0.0
   screen_record_background_script: |
-    adb shell avbctl disable-verification
-    adb disable-verity
     adb root
     adb remount
-    adb shell 'su 0 mount -o rw,remount /system'
+    adb shell 'mount -o remount rw /system; ls -lha /system; mkdir /system/sr'
     adb shell 'ls -lha /system; mkdir /system/sr'
     adb shell 'for n in $(seq 1 500); do screenrecord --verbose --time-limit=5 /system/sr/$n.mp4; done'
   check_script:
