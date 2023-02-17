@@ -38,4 +38,4 @@ check_android_task:
     screenrecord_pull_script:
       adb pull /sdcard/sr
     screenrecord_artifacts:
-      path: *.mp4
+      path: "*.mp4"
