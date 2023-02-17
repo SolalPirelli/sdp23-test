@@ -30,9 +30,12 @@ check_android_task:
     adb shell settings put global window_animation_scale 0.0
     adb shell settings put global transition_animation_scale 0.0
     adb shell settings put global animator_duration_scale 0.0
+  screenrecord_background_script:
+    adb shell 'mkdir /sdcard/sr; for n in $(seq 1 99); do screenrecord /sdcard/sr/$n.mp4; done'
   check_script:
-    ./gradlew check connectedCheck || adb exec-out screencap -p > screen.png
+    ./gradlew check connectedCheck
   always:
-    screen_artifacts:
-      path: screen.png
-      type: image/png
+    screenrecord_pull_script:
+      adb pull /sdcard/sr
+    screenrecord_artifacts:
+      path: *.mp4
