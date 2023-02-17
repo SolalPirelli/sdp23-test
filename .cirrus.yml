@@ -12,6 +12,8 @@ check_android_task:
     echo no | avdmanager create avd --force
       --name emulator
       --package "system-images;android-33;google_apis;x86_64"
+  create_sdcard_script:
+    $ANDROID_HOME/emulator/mksdcard -l mySdCard 1024M sdcard.img
   start_avd_background_script:
     $ANDROID_HOME/emulator/emulator
       -avd emulator
@@ -21,6 +23,7 @@ check_android_task:
       -no-snapshot
       -no-window
       -camera-back none
+      -sdcard sdcard.img
   assemble_instrumented_tests_script: |
     chmod +x gradlew
     ./gradlew assembleDebugAndroidTest
