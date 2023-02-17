@@ -33,7 +33,9 @@ check_android_task:
   screen_record_background_script:
     for n in $(seq 1 500); do adb exec-out screenrecord --time-limit=30 --bit-rate=16m --output-format=h264 - > $n.mp4; done
   shut_up_script:
-    adb shell input tap 230 770 #sleep 3; adb shell input keyevent 20; sleep 3; adb shell input keyevent 20; sleep 3; adb shell input keyevent 66
+    sleep 3; adb shell input keyevent 66; sleep 1; adb shell input keyevent 66; sleep 1; adb shell input keyevent 66; sleep 1; adb shell input keyevent 66
+    #adb shell input tap 230 770
+    #sleep 3; adb shell input keyevent 20; sleep 3; adb shell input keyevent 20; sleep 3; adb shell input keyevent 66
   check_script:
     if ! ./gradlew check connectedCheck ; then sleep 30; exit 1; fi
   always:
