@@ -7,11 +7,11 @@ container:
 check_android_task:
   name: Run Android tests
   install_emulator_script:
-    sdkmanager --install "system-images;android-33;google_apis;x86_64"
+    sdkmanager --install "system-images;android-30;google_apis;x86_64"
   create_avd_script:
     echo no | avdmanager create avd --force
       --name emulator
-      --package "system-images;android-33;google_apis;x86_64"
+      --package "system-images;android-30;google_apis;x86_64"
   start_avd_background_script:
     $ANDROID_HOME/emulator/emulator
       -avd emulator
@@ -32,8 +32,8 @@ check_android_task:
     adb shell settings put global animator_duration_scale 0.0
   screen_record_background_script:
     for n in $(seq 1 999); do date; adb exec-out screenrecord --time-limit=180 --output-format=h264 - > $n.h264; done
-  accept_prompts_script:
-    sleep 20; for n in $(seq 1 10); do adb shell input keyevent 20; adb shell input keyevent 66; sleep 1; done
+#  accept_prompts_script:
+#    sleep 20; for n in $(seq 1 10); do adb shell input keyevent 20; adb shell input keyevent 66; sleep 1; done
   check_script:
     ./gradlew check connectedCheck
   on_failure:
