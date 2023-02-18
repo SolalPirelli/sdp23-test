@@ -41,8 +41,9 @@ check_android_task:
   check_script:
     ./gradlew check connectedCheck
   on_failure:
-    wait_for_screenrecord_script:
+    wait_for_screenrecord_script: |
       sleep 30
+      killall -9 adb
   always:
     screenrecord_artifacts:
       path: "*.mp4"
