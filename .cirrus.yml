@@ -7,11 +7,11 @@ container:
 check_android_task:
   name: Run Android tests
   install_emulator_script:
-    sdkmanager --install "system-images;android-33;google_apis;x86_64"
+    sdkmanager --install "system-images;android-32;google_apis;x86_64"
   create_avd_script:
     echo no | avdmanager create avd --force
       --name emulator
-      --package "system-images;android-33;google_apis;x86_64"
+      --package "system-images;android-32;google_apis;x86_64"
   start_avd_background_script:
     $ANDROID_HOME/emulator/emulator
       -avd emulator
@@ -31,7 +31,7 @@ check_android_task:
     adb shell settings put global transition_animation_scale 0.0
     adb shell settings put global animator_duration_scale 0.0
   screen_record_background_script:
-    for n in $(seq 1 500); do adb exec-out screenrecord --time-limit=30 --bit-rate=16m --output-format=h264 - > $n.mp4; done
+    for n in $(seq 1 500); do adb exec-out screenrecord --time-limit=20 --bit-rate=16m --output-format=h264 - > $n.mp4; done
   shut_up_script: |
     adb shell settings put system show_touches 1
     sleep 3;adb shell input tap 115 385; sleep 1; adb shell input tap 115 385; sleep 1; adb shell input tap 115 385
@@ -42,8 +42,8 @@ check_android_task:
     ./gradlew check connectedCheck
   on_failure:
     wait_for_screenrecord_script: |
-      sleep 30
-      killall -9 adb
+      sleep 20
+      pkill -x adb
   always:
     screenrecord_artifacts:
       path: "*.mp4"
