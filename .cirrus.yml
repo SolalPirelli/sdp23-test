@@ -32,7 +32,7 @@ check_android_task:
     adb shell settings put global animator_duration_scale 0.0
     adb shell settings put system show_touches 1
   screen_record_background_script:
-    for n in $(seq 1 999); do date; adb exec-out screenrecord --time-limit=180 --bit-rate=16m --output-format=mp4 --bugreport - > $n.mp4; done
+    for n in $(seq 1 999); do date; adb exec-out screenrecord --time-limit=180 --output-format=h264 --bugreport - > $n.mp4; done
   shut_up_script: |
     sleep 5
     adb shell input tap 115 385; sleep 1; adb shell input tap 115 385; sleep 1; adb shell input tap 115 385
