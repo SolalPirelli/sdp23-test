@@ -32,7 +32,12 @@ check_android_task:
     adb shell settings put global animator_duration_scale 0.0
   screen_record_background_script: |
     for n in $(seq 1 999); do
-      if [ -f .stop_recording ]; then break; fi
+      date
+      ls -lha
+      if [ -f .stop_recording ]; then
+        echo 'stopped'
+        break
+      fi
       adb exec-out screenrecord --time-limit=180 - > $n.mp4
     done
   shut_up_background_script: |
