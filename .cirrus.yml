@@ -31,9 +31,9 @@ check_android_task:
     adb shell settings put global transition_animation_scale 0.0
     adb shell settings put global animator_duration_scale 0.0
   screen_record_background_script:
-    for n in $(seq 1 999); do date; adb exec-out screenrecord --time-limit=180 --output-format=h264 - > $n.mp4; done
+    for n in $(seq 1 999); do date; adb exec-out screenrecord --time-limit=180 --output-format=h264 - > $n.h264; done
   accept_prompts_script:
-    for n in $(seq 1 15); do sleep 1; adb shell input tap 220 770; done
+    for n in $(seq 1 10); do sleep 2; adb shell input tap 120 330; done
   check_script:
     ./gradlew check connectedCheck
   on_failure:
@@ -42,4 +42,4 @@ check_android_task:
       sleep 2
   always:
     screenrecord_artifacts:
-      path: "*.mp4"
+      path: "*.h264"
