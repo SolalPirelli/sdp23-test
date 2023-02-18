@@ -33,7 +33,7 @@ check_android_task:
   screen_record_background_script:
     for n in $(seq 1 999); do date; adb exec-out screenrecord --time-limit=180 --output-format=h264 - > $n.h264; done
   accept_prompts_script:
-    for n in $(seq 1 10); do sleep 2; adb shell input tap 120 330; done
+    sleep 5; for n in $(seq 1 10); do adb shell input keyevent 20; adb shell input keyevent 66; sleep 2; done
   check_script:
     ./gradlew check connectedCheck
   on_failure:
