@@ -46,7 +46,7 @@ check_android_task:
     ./cc-test-reporter format-coverage ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml --input-type jacoco
     ./cc-test-reporter upload-coverage
   always:
-    wait_for_screenrecord_script:
+    wait_for_screenrecord_script: |
       pkill -2 -x adb
       sleep 2
     screenrecord_artifacts:
