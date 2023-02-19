@@ -21,7 +21,7 @@ public class GreetingActivityTest {
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), GreetingActivity.class);
         intent.putExtra(GreetingActivity.NAME_KEY, "Solal");
         try (ActivityScenario<GreetingActivity> scenario = ActivityScenario.launch(intent)) {
-            onView(withId(R.id.greetingMessage)).check(matches(withText("Hello, Solal")));
+            onView(withId(R.id.greetingMessage)).check(matches(withText("Hello, Solalx")));
         }
     }
 }
