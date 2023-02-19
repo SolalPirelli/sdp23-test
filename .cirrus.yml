@@ -53,9 +53,9 @@ check_android_task:
       sleep 2
     screenrecord_artifacts:
       path: "*.h264"
-    android_lint_artifacts:
-      path: ./app/build/reports/lint-results-debug.xml
-      format: android-lint
-    junit_artifacts:
-      path: "**/test-results/**/*.xml"      
-      format: junit
+#    android_lint_artifacts:
+#      path: ./app/build/reports/lint-results-debug.xml
+#      format: android-lint
+    test_artifacts:
+      path: "./app/build/**/*.xml"
+#      format: junit
