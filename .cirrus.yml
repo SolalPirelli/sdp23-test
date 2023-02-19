@@ -56,6 +56,9 @@ check_android_task:
     android_lint_artifacts:
       path: ./app/build/reports/lint-results-debug.xml
       format: android-lint
-    junit_artifacts:
-      path: "**/test-results/**/*.xml"      
+    test_artifacts:
+      path: "./app/build/test-results/**/*.xml"
+      format: junit
+    androidtest_artifacts:
+      path: "./app/build/outputs/**/*.xml"
       format: junit
